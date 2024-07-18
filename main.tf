@@ -1,16 +1,16 @@
 provider "google" {
-  credentials = file("<YOUR_SERVICE_ACCOUNT_KEY_FILE>.json")
-  project     = "<YOUR_PROJECT_ID>"
-  region      = "<YOUR_DEFAULT_REGION>"
+  credentials = file("key.json")
+  project     = "hack-team-neuronurturers"
+  region      = "europe-west3"
 }
 
 resource "google_storage_bucket" "my_bucket" {
-  name     = "my-unique-bucket-name"
+  name     = "hack-team-neuronurturers_tfc_bucket"
   location = "US"
 }
 
 resource "google_project_service" "vision_api" {
-  project = "<YOUR_PROJECT_ID>"
+  project = "hack-team-neuronurturers"
   service = "vision.googleapis.com"
 }
 
@@ -19,16 +19,16 @@ resource "google_storage_bucket_iam_binding" "bucket_binding" {
 
   role    = "roles/storage.objectViewer"
   members = [
-    "serviceAccount:<YOUR_SERVICE_ACCOUNT_EMAIL>"
+    "serviceAccount:workload@hack-team-neuronurturers.iam.gserviceaccount.com"
   ]
 }
 
 resource "google_project_iam_binding" "vision_api_binding" {
-  project = "<YOUR_PROJECT_ID>"
+  project = "hack-team-neuronurturers"
   role    = "roles/vision.apiUser"
 
   members = [
-    "serviceAccount:<YOUR_SERVICE_ACCOUNT_EMAIL>"
+    "serviceAccount:workload@hack-team-neuronurturers.iam.gserviceaccount.com"
   ]
 }
 
